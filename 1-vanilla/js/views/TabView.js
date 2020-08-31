@@ -2,6 +2,7 @@ import View from './View.js'
 
 const tag = '[TabView]'
 
+<<<<<<< HEAD
 const TabView = Object.create(View)
 
 TabView.tabNames = {
@@ -34,3 +35,33 @@ TabView.onClick = function (tabName) {
 }
 
 export default TabView
+=======
+const TabView = Object.create(View);
+
+TabView.setup = function(el) {
+    this.init(el)
+    this.bindEvents()
+    return this
+}
+
+TabView.setActiveTab = function(tabName) {
+    Array.from(this.el.querySelectorAll('li')).forEach(li => {
+        li.className = li.innerHTML === tabName ? 'active' : ''
+    })
+    this.show()
+}
+
+TabView.bindEvents = function() {
+    // this.el.addEventListener('click', e => this.onClickTab(e))
+    Array.from(this.el.querySelectorAll('li')).forEach(li => {
+        li.addEventListener('click', e => this.onClick(li.innerHTML))
+    })
+}
+
+TabView.onClick = function(tabName) {
+    this.setActiveTab(tabName)
+    this.emit('@change', { tabName })
+}
+
+export default TabView
+>>>>>>> 1-vanilla-end
